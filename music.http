@@ -1,0 +1,109 @@
+### 1. Pobierz wszystkie tracki
+GET http://localhost:8080/webapi/tracks
+
+### 2. Pobierz track po ID
+GET http://localhost:8080/webapi/tracks/1
+
+### 3. Pobierz nieistniejący track (404)
+GET http://localhost:8080/webapi/tracks/999
+
+### 4. Pobierz tracki filtrowane po tytule (pusta lista)
+GET http://localhost:8080/webapi/tracks?title=Bohemian Rhapsody
+
+### 5. Pobierz wszystkie playlisty
+GET http://localhost:8080/webapi/playlists
+
+### 6. Pobierz playlistę po ID
+GET http://localhost:8080/webapi/playlists/1
+
+### 7. Pobierz nieistniejącą playlistę (404)
+GET http://localhost:8080/webapi/playlists/999
+
+### 8. Dodaj nową playlistę (201)
+POST http://localhost:8080/webapi/playlists
+Content-Type: application/json
+
+{
+  "name": "Nowa Playlista"
+}
+
+### 9. Dodaj nowy track (201)
+POST http://localhost:8080/webapi/tracks
+Content-Type: application/json
+
+{
+  "title": "DNA",
+  "rating": 9.1,
+  "artist": { "id": 1, "firstName": "Kendrick", "lastName": "Lamar" }
+}
+
+### 10. Dodaj duplikat tracka - powinno zwrócić 400 po polsku
+POST http://localhost:8080/webapi/tracks
+Content-Type: application/json
+Accept-Language: pl
+
+{
+  "title": "DNA",
+  "rating": 9.1,
+  "artist": { "id": 1, "firstName": "Kendrick", "lastName": "Lamar" }
+}
+
+### 11. Dodaj track bez tytułu - 400 (locale systemowy = polski)
+POST http://localhost:8080/webapi/tracks
+Content-Type: application/json
+
+{
+  "rating": 9.1,
+  "artist": { "id": 1, "firstName": "Kendrick", "lastName": "Lamar" }
+}
+
+### 12. Dodaj track bez tytułu - 400 polski
+POST http://localhost:8080/webapi/tracks
+Content-Type: application/json
+Accept-Language: pl
+
+{
+  "rating": 9.1,
+  "artist": { "id": 1, "firstName": "Kendrick", "lastName": "Lamar" }
+}
+
+### 13. Dodaj track bez tytułu - 400 włoski
+POST http://localhost:8080/webapi/tracks
+Content-Type: application/json
+Accept-Language: it
+
+{
+  "rating": 9.1,
+  "artist": { "id": 1, "firstName": "Kendrick", "lastName": "Lamar" }
+}
+
+### 14. Dodaj track bez tytułu - 400 angielski
+POST http://localhost:8080/webapi/tracks
+Content-Type: application/json
+Accept-Language: en
+
+{
+  "rating": 9.1,
+  "artist": { "id": 1, "firstName": "Kendrick", "lastName": "Lamar" }
+}
+
+### 15. Pobierz wszystkich artystów
+GET http://localhost:8080/webapi/artists
+
+### 16. Pobierz artystę po ID
+GET http://localhost:8080/webapi/artists/1
+
+### 17. Pobierz nieistniejącego artystę (404)
+GET http://localhost:8080/webapi/artists/999
+
+### 18. Pobierz tracki artysty
+GET http://localhost:8080/webapi/artists/1/tracks
+
+### 19. Dodaj artystę (201 + Location header)
+POST http://localhost:8080/webapi/artists
+Content-Type: application/json
+
+{
+  "firstName": "Drake",
+  "lastName": "Graham"
+}

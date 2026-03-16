@@ -17,13 +17,11 @@ public class TrackValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return true;
+        return Track.class.equals(clazz);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
-        if (!(target instanceof Track)) return;
-
         Track validatedTrack = (Track) target;
 
         boolean duplicated = trackService.getAllTracks().stream()

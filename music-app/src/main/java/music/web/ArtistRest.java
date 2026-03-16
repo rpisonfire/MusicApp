@@ -33,10 +33,14 @@ public class ArtistRest {
     }
 
     @GetMapping("/artists")
-    public List<Artist> getAllArtists() {
+    public List<Artist> getAllArtists(@RequestParam(value = "phrase", required = false) String phrase) {
         log.info("GET /webapi/artists");
+        if ("foo".equals(phrase)) {
+            throw new IllegalArgumentException("Exception's test");
+        }
         return trackService.getAllArtists();
     }
+
 
     @GetMapping("/artists/{id}")
     public ResponseEntity<Artist> getArtistById(@PathVariable("id") int id) {
@@ -55,7 +59,7 @@ public class ArtistRest {
     }
 
     @PostMapping("/artists")
-    public ResponseEntity<?> addArtist(@RequestBody ArtistDTO artistDTO, Errors errors, HttpServletRequest request) {
+    public ResponseEntity<?> addArtist(@RequestBody @Validated ArtistDTO artistDTO, Errors errors, HttpServletRequest request) {
         log.info("POST /webapi/artists, artistDTO={}", artistDTO);
         if (errors.hasErrors()) {
             Locale locale = localeResolver.resolveLocale(request);

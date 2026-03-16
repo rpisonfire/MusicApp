@@ -107,3 +107,17 @@ Content-Type: application/json
   "firstName": "Drake",
   "lastName": "Graham"
 }
+
+### 20. Test exception
+GET http://localhost:8080/webapi/artists?phrase=foo
+
+### 21. Dodaj track duplikat (powinno być 400)
+POST http://localhost:8080/webapi/tracks
+Content-Type: application/json
+
+{
+  "title": "Humble"
+}
+
+
+

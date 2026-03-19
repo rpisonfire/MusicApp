@@ -1,4 +1,4 @@
-# 🎵 Music App — Inżynieria Oprogramowania VI
+# 🎵 Music App — Inżynieria Oprogramowania (sem VI)
 
 Projekt aplikacji webowej realizowanej na zajęciach z **Inżynierii Oprogramowania** w semestrze VI Informatyki Przemysłowej.
 

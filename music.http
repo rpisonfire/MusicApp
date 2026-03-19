@@ -118,6 +118,12 @@ Content-Type: application/json
 {
   "title": "Humble"
 }
+### 22. Testowanie zagniezdzonych
+GET http://localhost:8080/webapi/tracks?artistId=1
+
+### 23. Testowanie zagniezdzonych
+GET http://localhost:8080/webapi/tracks?playlistId=1
+
 
 
 

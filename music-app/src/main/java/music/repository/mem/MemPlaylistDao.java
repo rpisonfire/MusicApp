@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository("playlistDao")
-@Primary
 public class MemPlaylistDao implements PlaylistDao {
 
     @Override

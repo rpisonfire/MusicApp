@@ -1,16 +1,27 @@
 package music.model;
 
+import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "playlist")
 public class Playlist {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "logo_url")
     private String logoUrl;
+
     @JsonIgnore
+    @ManyToMany(mappedBy = "playlists")
     private List<Track> tracks = new ArrayList<>();
 
     public Playlist(int id, String name, String logoUrl) {

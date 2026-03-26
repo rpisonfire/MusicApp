@@ -144,6 +144,19 @@ Content-Type: application/json
   "artist": { "id": 1 }
 }
 
+### POST bez autoryzacji — powinien zwrócić 401
+POST http://localhost:8080/webapi/tracks
+Content-Type: application/json
+
+{"title": "Swimming Pools", "rating": 9.9, "artist": {"id": 1}}
+
+### POST z autoryzacją admina — powinien zwrócić 200
+POST http://localhost:8080/webapi/tracks
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{"title": "Swimming Pools", "rating": 9.9, "artist": {"id": 1}}
+
 
 
 

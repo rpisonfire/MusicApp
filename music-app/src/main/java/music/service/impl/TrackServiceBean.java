@@ -6,6 +6,7 @@ import music.repository.ArtistDao;
 import music.repository.PlaylistDao;
 import music.repository.TrackDao;
 import music.service.TrackService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,7 @@ public class TrackServiceBean implements TrackService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     @Transactional
     public Track addTrack(Track t) {
         log.info("about to add track " + t);

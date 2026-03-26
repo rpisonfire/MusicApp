@@ -6,8 +6,8 @@ import music.repository.ArtistDao;
 import music.repository.PlaylistDao;
 import music.repository.TrackDao;
 import music.service.TrackService;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -17,16 +17,22 @@ public class TrackServiceBean implements TrackService {
 
     private static final Logger log = Logger.getLogger(TrackService.class.getName());
 
-    private ArtistDao artistDao;
-    private PlaylistDao playlistDao;
-    private TrackDao trackDao;
+    private final ArtistDao artistDao;
+    private final PlaylistDao playlistDao;
+    private final TrackDao trackDao;
 
-    // Trzy parametry - Spring automatycznie dostarczy każdy z kontekstu
-    // Działa bo każde z tych DAO ma dokładnie jedną implementację z @Component
     public TrackServiceBean(ArtistDao artistDao, PlaylistDao playlistDao, TrackDao trackDao) {
         this.artistDao = artistDao;
         this.playlistDao = playlistDao;
         this.trackDao = trackDao;
+    }
+
+    @Override
+    @Transactional
+    public Track addTrack(Track t) {
+        log.info("about to add track " + t);
+        if (t.getTitle() == null) throw new RuntimeException("Brak tytułu!");
+        return trackDao.add(t);
     }
 
     @Override
@@ -57,12 +63,6 @@ public class TrackServiceBean implements TrackService {
     public Artist getArtistById(int id) {
         log.info("searching artist by id " + id);
         return artistDao.findById(id);
-    }
-
-    @Override
-    public Track addTrack(Track t) {
-        log.info("about to add track " + t);
-        return trackDao.add(t);
     }
 
     @Override

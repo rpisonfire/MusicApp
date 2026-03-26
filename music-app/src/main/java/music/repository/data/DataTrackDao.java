@@ -7,6 +7,8 @@ import music.repository.TrackDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -38,6 +40,7 @@ public class DataTrackDao implements TrackDao {
     }
 
     @Override
+    @Transactional(propagation = Propagation.MANDATORY)
     public Track add(Track t) {
         return trackRepository.save(t);
     }

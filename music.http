@@ -144,20 +144,23 @@ Content-Type: application/json
   "artist": { "id": 1 }
 }
 
-### POST bez autoryzacji — powinien zwrócić 401
+### POST jako ADMIN (oczekujesz 200 lub 201)
 POST http://localhost:8080/webapi/tracks
+Authorization: Basic admin admin123
 Content-Type: application/json
 
-{"title": "Swimming Pools", "rating": 9.9, "artist": {"id": 1}}
+{
+  "title": "Test Track 2"
+}
 
-### POST z autoryzacją admina — powinien zwrócić 200
+### POST jako USER (oczekujesz 403)
 POST http://localhost:8080/webapi/tracks
+Authorization: Basic user user123
 Content-Type: application/json
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
 
-{"title": "Swimming Pools", "rating": 9.9, "artist": {"id": 1}}
-
-
+{
+  "title": "Test Track"
+}
 
 
 

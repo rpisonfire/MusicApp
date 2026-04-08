@@ -3,13 +3,20 @@ target/
 *.class
 *.jar
 
-# IntelliJ
+# IDE - ustawienia edytorów
 .idea/
 *.iml
 out/
+.vscode/
 
-# System
-.DS_Store
+# Build - pliki generowane podczas kompilacji
+target/
+**/target/
 
-# Docker database data
+# Docker i Baza danych - dane bazy i logi
 docker-music/mysql/data/
+*.log
+
+# Systemowe - śmieci z macOS/Windows
+.DS_Store
+Thumbs.db

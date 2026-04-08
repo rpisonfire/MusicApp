@@ -1,64 +1,77 @@
-# 🎵 Music App — Inżynieria Oprogramowania (sem VI)
+# 🎵 Music App — Microservices & Engineering Lab
+> Projekt realizowany w ramach przedmiotu **Inżynieria Oprogramowania** (Semestr VI, Informatyka Przemysłowa).
+> *Software Engineering project developed during the 6th semester of Industrial IT.*
 
-Projekt aplikacji webowej realizowanej na zajęciach z **Inżynierii Oprogramowania** w semestrze VI Informatyki Przemysłowej.
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.1.4-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
+![Java](https://img.shields.io/badge/Java_21-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
 
-## 📖 Opis projektu
+---
 
-REST API do zarządzania muzyką — trackami, artystami i playlistami.  
-Aplikacja zbudowana w oparciu o **Spring Boot** z warstwą walidacji, obsługą internacjonalizacji (i18n), zarządzaniem transakcjami, monitoringiem przez Actuator oraz zabezpieczeniem przez Spring Security.
+## 🚀 O Projekcie / About The Project
+Kompleksowe **REST API** do zarządzania ekosystemem muzycznym (utwory, artyści, playlisty). Aplikacja demonstruje nowoczesne podejście do budowy systemów rozproszonych, kładąc nacisk na bezpieczeństwo, skalowalność i kulturę DevOps.
 
-## 🛠️ Technologie
+*A comprehensive REST API for managing a music ecosystem (tracks, artists, playlists). The application demonstrates a modern approach to building distributed systems, emphasizing security, scalability, and DevOps culture.*
 
-- **Java 21**
-- **Spring Boot 3.1.4**
-- **Spring Web MVC** — REST API
-- **Spring Data JPA / Hibernate** — warstwa dostępu do danych (MySQL)
-- **Spring Transactions** — transakcje imperatywne i deklaratywne (`@Transactional`)
-- **Spring Boot Actuator** — monitoring i diagnostyka aplikacji (`/actuator/*`)
-- **Spring Security** — uwierzytelnianie i autoryzacja (JDBC, BCrypt, HTTP Basic)
-- **Spring Validation (Hibernate Validator)** — walidacja danych
-- **Thymeleaf** — widoki HTML
-- **Lombok** — redukcja boilerplate
-- **i18n** — obsługa komunikatów w językach: 🇵🇱 PL, 🇬🇧 EN, 🇮🇹 IT
-- **MySQL** — baza danych (Docker)
-- **DevTools** — automatyczny restart aplikacji
+---
 
-## 🔄 Transakcje
+## 🛠️ Stack Technologiczny / Tech Stack
+* **Core:** Java 21 & Spring Boot 3.1.4
+* **Persistence:** Spring Data JPA (Hibernate) + MySQL 8.0
+* **Security:** Spring Security (BCrypt, JDBC Authentication, RBAC)
+* **Monitoring:** Spring Boot Actuator
+* **Frontend:** Thymeleaf (Server-Side Rendering)
+* **Infrastructure:** Docker & Docker Compose
+* **Linguistic:** i18n (Obsługa 🇵🇱 PL, 🇬🇧 EN, 🇮🇹 IT)
 
-- Transakcje **imperatywne** z użyciem `PlatformTransactionManager`
-- Transakcje **deklaratywne** z adnotacją `@Transactional` (Spring)
-- Propagacja `MANDATORY` na warstwie repozytorium
+---
 
-## 🔐 Bezpieczeństwo
+## 🏗️ Architektura i Funkcje / Features
 
-Aplikacja zabezpieczona przy użyciu **Spring Security** z autentykacją HTTP Basic i przechowywaniem użytkowników w bazie danych MySQL.
+### 🔄 Zarządzanie Transakcjami / Transaction Management
+* **Deklaratywne / Declarative:** `@Transactional` (Spring context)
+* **Imperatywne / Imperative:** `PlatformTransactionManager`
+* **Propagacja / Propagation:** `MANDATORY` at the repository level.
 
-| Metoda | Endpoint | Dostęp |
-|---|---|---|
-| `GET` | `/webapi/**` | Publiczny |
-| `POST` | `/webapi/**` | `ROLE_ADMIN` |
+### 🔐 Security Matrix
+| Metoda / Method | Endpoint | Uprawnienia / Access |
+| :--- | :--- | :--- |
+| `GET` | `/webapi/**` | 🔓 Public |
+| `POST/PUT/DELETE` | `/webapi/**` | 🛡️ `ROLE_ADMIN` |
 
-- Użytkownicy i role przechowywane w tabelach `users` i `authorities`
-- Hasła hashowane algorytmem **BCrypt** (`{bcrypt}`)
-- Autoryzacja na poziomie metod serwisu (`@PreAuthorize`)
-- `DelegatingPasswordEncoder` — obsługa wielu formatów hashowania
+**Konta testowe / Test Accounts:**
+* `admin` / `admin123` (Full Access)
+* `user` / `user123` (Read Only)
 
-### Użytkownicy testowi
+### 🐳 Konteneryzacja / Dockerization
+* **MySQL:** Kontener z persistent storage / *Container with persistent storage*.
+* **Multi-Instance:** Konfiguracja pod Load Balancing / *Configuration for Load Balancing tests*.
 
-| Login | Hasło | Rola |
-|---|---|---|
-| `admin` | `admin123` | `ROLE_ADMIN` |
-| `user` | `user123` | `ROLE_USER` |
+```bash
+# Szybki start infrastruktury / Quick start
+docker-compose up -d
+```
+---
 
-## 📡 Actuator
+## 📡 Diagnostyka / Diagnostics (Actuator)
+Aplikacja udostępnia zaawansowane endpointy monitorujące pod ścieżką `/actuator`:
+*Aplication provides advanced monitoring endpoints under the `/actuator` path:*
 
-Dostępne endpointy diagnostyczne pod `/actuator`:
+* `health` – Status systemu / *System status*.
+* `metrics` – Szczegółowe statystyki JVM / *Detailed JVM metrics*.
+* `mappings` – Pełna mapa drogowa API / *Full API roadmap*.
+* `beans` – Wgląd w graf zależności Springa / *Spring bean dependency graph*.
 
-| Endpoint | Opis |
-|---|---|
-| `/actuator/health` | Status aplikacji |
-| `/actuator/info` | Informacje o aplikacji |
-| `/actuator/beans` | Lista beanów Spring |
-| `/actuator/env` | Zmienne środowiskowe |
-| `/actuator/metrics` | Metryki JVM |
-| `/actuator/mappings` | Lista endpointów REST |
+---
+
+## 📦 Instalacja i Uruchomienie / Installation & Setup
+1. **Clone:** `git clone https://github.com/rpisonfire/MusicApp.git`
+2. **Infrastructure:** `docker-compose up -d`
+3. **Build:** `./mvnw clean package -DskipTests`
+4. **Run:** `java -jar target/music-app.jar`
+
+---
+
+**👨‍💻 Made By:** [rpisonfire](https://github.com/rpisonfire)  
+**🏫 University:** Politechnika Śląska / Silesian University of Technology

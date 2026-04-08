@@ -5,7 +5,7 @@ Projekt aplikacji webowej realizowanej na zajęciach z **Inżynierii Oprogramowa
 ## 📖 Opis projektu
 
 REST API do zarządzania muzyką — trackami, artystami i playlistami.  
-Aplikacja zbudowana w oparciu o **Spring Boot** z warstwą walidacji, obsługą internacjonalizacji (i18n), zarządzaniem transakcjami oraz monitoringiem przez Actuator.
+Aplikacja zbudowana w oparciu o **Spring Boot** z warstwą walidacji, obsługą internacjonalizacji (i18n), zarządzaniem transakcjami, monitoringiem przez Actuator oraz zabezpieczeniem przez Spring Security.
 
 ## 🛠️ Technologie
 
@@ -15,6 +15,7 @@ Aplikacja zbudowana w oparciu o **Spring Boot** z warstwą walidacji, obsługą 
 - **Spring Data JPA / Hibernate** — warstwa dostępu do danych (MySQL)
 - **Spring Transactions** — transakcje imperatywne i deklaratywne (`@Transactional`)
 - **Spring Boot Actuator** — monitoring i diagnostyka aplikacji (`/actuator/*`)
+- **Spring Security** — uwierzytelnianie i autoryzacja (JDBC, BCrypt, HTTP Basic)
 - **Spring Validation (Hibernate Validator)** — walidacja danych
 - **Thymeleaf** — widoki HTML
 - **Lombok** — redukcja boilerplate
@@ -27,6 +28,27 @@ Aplikacja zbudowana w oparciu o **Spring Boot** z warstwą walidacji, obsługą 
 - Transakcje **imperatywne** z użyciem `PlatformTransactionManager`
 - Transakcje **deklaratywne** z adnotacją `@Transactional` (Spring)
 - Propagacja `MANDATORY` na warstwie repozytorium
+
+## 🔐 Bezpieczeństwo
+
+Aplikacja zabezpieczona przy użyciu **Spring Security** z autentykacją HTTP Basic i przechowywaniem użytkowników w bazie danych MySQL.
+
+| Metoda | Endpoint | Dostęp |
+|---|---|---|
+| `GET` | `/webapi/**` | Publiczny |
+| `POST` | `/webapi/**` | `ROLE_ADMIN` |
+
+- Użytkownicy i role przechowywane w tabelach `users` i `authorities`
+- Hasła hashowane algorytmem **BCrypt** (`{bcrypt}`)
+- Autoryzacja na poziomie metod serwisu (`@PreAuthorize`)
+- `DelegatingPasswordEncoder` — obsługa wielu formatów hashowania
+
+### Użytkownicy testowi
+
+| Login | Hasło | Rola |
+|---|---|---|
+| `admin` | `admin123` | `ROLE_ADMIN` |
+| `user` | `user123` | `ROLE_USER` |
 
 ## 📡 Actuator
 

@@ -26,8 +26,10 @@
         <tr th:each="t : ${tracks}">
             <td th:text="${t.title}"></td>
             <td>
-                <a th:href="@{/ui/tracks?artistId={id}(id=${t.artist.id})}"
-                   th:text="${t.artist.firstName} + ' ' + ${t.artist.lastName}"></a>
+                <a th:href="@{/ui/tracks(artistId=${t.artist?.id})}"
+                   th:text="${t.artist?.firstName ?: 'Nieznany'} + ' ' + ${t.artist?.lastName ?: 'Artysta'}">
+                    Pokaż
+                </a>
             </td>
             <td class="search-container">
                 <a class="search" th:href="@{/ui/playlists(trackId=${t.id})}"></a>
